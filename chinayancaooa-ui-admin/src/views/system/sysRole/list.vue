@@ -45,6 +45,7 @@
       <el-table-column prop="createTime" label="创建时间" width="160" />
       <el-table-column label="操作" width="200" align="center">
         <template slot-scope="scope">
+          <el-button type="warning" icon="el-icon-baseball" size="mini" @click="showAssignAuth(scope.row)" title="分配权限"/>
           <el-button type="primary" icon="el-icon-edit" size="mini" title="修改" @click="edit(scope.row.id)" />
           <el-button type="danger" icon="el-icon-delete" size="mini" title="删除" @click="removeDataById(scope.row.id)" />
         </template>
@@ -93,9 +94,8 @@ export default {
         this.list = response.data.records
         this.total = response.data.total
       })
-    }
-  },
-  // 根据id删除数据
+    },
+      // 根据id删除数据
     removeDataById(id) {
         // debugger
         this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
@@ -176,6 +176,11 @@ export default {
       this.fetchData()
       this.$message.success(response.message)
     })
+  },
+
+  showAssignAuth(row) {
+    this.$router.push('/system/assignAuth?id='+row.id+'&roleName='+row.roleName);
+  }
   }
 }
 </script>
